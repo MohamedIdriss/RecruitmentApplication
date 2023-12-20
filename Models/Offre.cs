@@ -17,5 +17,7 @@ public partial class Offre
 
     public int RecruteurId { get; set; }
 
+    public virtual ICollection<OffreCandidate> OffreCandidates { get; set; } = new List<OffreCandidate>();
+
     public virtual Recruteur Recruteur { get; set; } = null!;
 }

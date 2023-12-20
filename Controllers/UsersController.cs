@@ -45,6 +45,7 @@ namespace RecruitmentApplication.Controllers
                     return NotFound();
                 }
                 HttpContext.Session.SetInt32("UserId", u.Id);
+                HttpContext.Session.SetString("UserRole", u.Role);
                 if (user.Role == "Recruteur") {
                     return RedirectToAction("InscriptionRH", "Recruteurs");
                 }
@@ -73,7 +74,7 @@ namespace RecruitmentApplication.Controllers
                     return NotFound();
                 }
                 HttpContext.Session.SetInt32("UserId", u.Id);
-                
+                HttpContext.Session.SetString("UserRole", u.Role);
                 if (u.Role == "Recruteur")
                 {
                     if (u.ProfileCompleted == false)
@@ -86,11 +87,32 @@ namespace RecruitmentApplication.Controllers
                     }
                     
                 }
-                return RedirectToAction("InscriptionCA", "Candidates");
+                else
+                {
+                    if (u.ProfileCompleted == false)
+                    {
+                        RedirectToAction("InscriptionCA", "Candidates");
+                    }
+                    else
+                    {
+                        return RedirectToAction("AllOffres", "Candidates");
+                    }
+                }
+                
             }
             return View(user);
         }
+        public IActionResult Logout()
+        {
 
+
+            // Optionally, clear session data or perform additional logout-related tasks
+            HttpContext.Session.Clear();
+
+
+            // Redirect to the login page or any other desired destination
+            return RedirectToAction("Login");
+        }
 
 
         /*

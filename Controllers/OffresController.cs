@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,13 +21,90 @@ namespace RecruitmentApplication.Controllers
         }
 
         // GET: Offres
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    var userId = HttpContext.Session.GetInt32("UserId");
+            
+        //    var recruitmentDbContext = _context.Offres.Where(o => o.RecruteurId == userId.Value) ;
+        //    return View(await recruitmentDbContext.ToListAsync());
+        //}
+
+        //[AllowAnonymous]
+        //public async Task<IActionResult> Filter(string searchString)
+        //{
+        //    var userId = HttpContext.Session.GetInt32("UserId");
+
+        //    var allOffres = await _context.Offres.Include(o => o.Recruteur).Where(o => o.RecruteurId == userId.Value).ToListAsync();
+
+        //    if (!string.IsNullOrEmpty(searchString))
+        //    {
+        //        var filteredResult = allOffres.Where(n => n.Title.ToLower().Contains(searchString.ToLower()) || n.Description.ToLower().Contains(searchString.ToLower())).ToList();
+
+        //        //  var filteredResultNew = allActors.Where(n => string.Equals(n.FullName, searchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
+
+        //        return View("Index", filteredResult);
+        //    }
+
+        //    return View("Index", allOffres);
+        //}
+
+
+        public IActionResult Index(string titre, string type)
         {
             var userId = HttpContext.Session.GetInt32("UserId");
-            
-            var recruitmentDbContext = _context.Offres.Where(o => o.RecruteurId == userId.Value) ;
-            return View(await recruitmentDbContext.ToListAsync());
+            IQueryable list = _context.Offres.Include(o => o.Recruteur).Where(o => o.RecruteurId == userId.Value);
+            var lesgenre = new List<string> { "Publier", "Archiver" };
+            ViewBag.type = new SelectList(lesgenre);
+
+            if (titre != null && type != null)
+            {  if (type == "Publier")
+                {
+                    list = from m in _context.Offres.Include(o => o.Recruteur).Where(o => o.RecruteurId == userId.Value && o.Title.Contains(titre)
+                           && o.Publier == true)
+                           select m;
+
+                }
+                else
+                {
+                    list = from m in _context.Offres.Include(o => o.Recruteur).Where(o => o.RecruteurId == userId.Value && o.Title.Contains(titre)
+                           && o.Archiver == true)
+                           select m;
+
+                }
+
         }
+            else if (titre == null && type == null)
+            {
+                list = from m in _context.Offres.Include(o => o.Recruteur).Where(o => o.RecruteurId == userId.Value)
+                select m;
+            }
+
+            else if (titre == null)
+            {
+                if (type == "Publier")
+                {
+                    list = from m in _context.Offres.Include(o => o.Recruteur).Where(o => o.RecruteurId == userId.Value 
+                           && o.Publier == true)
+                           select m;
+
+                }
+                else
+                {
+                    list = from m in _context.Offres.Include(o => o.Recruteur).Where(o => o.RecruteurId == userId.Value 
+                           && o.Archiver == true)
+                           select m;
+
+                }
+            }
+            else if (type == null)
+            {
+                list = from m in _context.Offres.Include(o => o.Recruteur)
+                       where m.RecruteurId == userId.Value && m.Title.Contains(titre)
+                       select m;
+            }
+            return View(list);
+        }
+
 
         // GET: Offres/Details/5
         public async Task<IActionResult> Details(int? id)
