@@ -50,14 +50,14 @@ namespace RecruitmentApplication.Controllers
 
         public async Task<IActionResult> AllOffres()
         {
-            var recruitmentDbContext = _context.Offres.Include(o => o.Recruteur);
+            var recruitmentDbContext = _context.Offres.Include(o => o.Recruteur).Where(o => o.Publier == true);
             return View(await recruitmentDbContext.ToListAsync());
         }
 
         [AllowAnonymous]
         public async Task<IActionResult> Filter(string searchString)
         {
-            var allOffres = await _context.Offres.Include(o => o.Recruteur).ToListAsync();
+            var allOffres = await _context.Offres.Include(o => o.Recruteur).Where(o => o.Publier == true).ToListAsync();
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -70,5 +70,74 @@ namespace RecruitmentApplication.Controllers
 
             return View("AllOffres", allOffres);
         }
+
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.Offres == null)
+            {
+                return NotFound();
+            }
+
+            var offre = await _context.Offres
+                .Include(o => o.Recruteur)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (offre == null)
+            {
+                return NotFound();
+            }
+
+            return View(offre);
+        }
+
+        public async Task<IActionResult> Postuler(int? id)
+        {
+            if (id == null || _context.Offres == null)
+            {
+                return NotFound();
+            }
+            var userId = HttpContext.Session.GetInt32("UserId");
+            var recruitmentDbContext = _context.Offres.Include(o => o.Recruteur).Where(o => o.Publier == true);
+
+            bool hasAlreadyApplied = _context.OffreCandidates
+  .Any(co => co.CandidateId == userId && co.OffreId == id);
+
+            if (hasAlreadyApplied)
+            {
+                TempData["ErrorMessage"] = "You have already applied for this job offer.";
+                return RedirectToAction("AllOffres", await recruitmentDbContext.ToListAsync());
+            }
+            OffreCandidate oc = new OffreCandidate {
+                CandidateId = userId.Value ,
+                OffreId = (int)id,
+                Status = "En attente"
+            };
+            _context.OffreCandidates.Add(oc);
+            _context.SaveChanges();
+           
+            TempData["SuccessMessage"] = "Operation was successful.";
+
+
+            return View("AllOffres", await recruitmentDbContext.ToListAsync());
+        }
+
+
+        public async Task<IActionResult> Suivremescandidatures()
+        {
+
+            var userId = HttpContext.Session.GetInt32("UserId");
+
+
+            var candidatures = _context.OffreCandidates
+         .Where(co => co.CandidateId == userId)
+         .Include(co => co.Offre.Recruteur);
+
+
+            return View("Suivremescandidatures", candidatures);
+
+
+        }
+
+
     }
 }

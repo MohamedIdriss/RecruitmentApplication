@@ -4,6 +4,7 @@
     ViewData["Title"] = "AllOffres";
 }
 
+
 <h1>AllOffres</h1>
 <form class="form-inline my-2 my-lg-0" asp-controller="Candidates" asp-action="Filter" style="padding-right: 25px;">
     <div class="col">
@@ -13,7 +14,19 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
     </div>
 </form>
+@if (TempData["SuccessMessage"] != null || TempData["ErrorMessage"] != null)
+{
+    <div id="notificationMessage" class="alert @(TempData["SuccessMessage"] != null ? "alert-success" : "alert-danger")">
+        @(TempData["SuccessMessage"] ?? TempData["ErrorMessage"])
+    </div>
 
+    <script>
+        // Automatically hide the notification message after 5 seconds
+        setTimeout(function () {
+            $('#notificationMessage').fadeOut('slow');
+        }, 5000);
+    </script>
+}
 <table class="table">
     <thead>
         <tr>
@@ -25,6 +38,8 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Recruteur)
+            </th>
+            <th>
             </th>
 
             
@@ -45,9 +60,14 @@
                     @Html.DisplayFor(modelItem => item.Recruteur.Name)
                 </td>
            
-
+                    <td>
+                   |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Postuler" asp-route-id="@item.Id">Postuler</a>
+                </td>
 
         </tr>
 }
     </tbody>
 </table>
+

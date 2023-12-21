@@ -5,8 +5,6 @@ namespace RecruitmentApplication.Models;
 
 public partial class OffreCandidate
 {
-    public int Id { get; set; }
-
     public int CandidateId { get; set; }
 
     public int OffreId { get; set; }

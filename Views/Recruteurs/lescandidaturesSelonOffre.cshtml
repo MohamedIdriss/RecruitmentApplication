@@ -1,0 +1,77 @@
+﻿@model IEnumerable<RecruitmentApplication.Models.OffreCandidate>
+
+@{
+    ViewData["Title"] = "lescandidaturesSelonOffre";
+}
+
+<h1>lescandidaturesSelonOffre</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Offre.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Candidate.Framework)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Candidate.University)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Candidate.Langue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Candidate.GithubUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Offre.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Candidate.Framework)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Candidate.University)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Candidate.Langue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Candidate.GithubUrl)
+                </td>
+
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.Status)
+                    
+                   @* <input type="hidden" name="idCandidat" value="@item.IdCandidat" />
+                    <input type="hidden" name="codeOffre" value="@item.codeOffre" />
+
+                    <button type="submit">Save</button>*@
+
+                </td>
+                @*   <td>
+            <select asp-for="@item.Status" asp-items="Html.GetEnumSelectList<RecruitementManagementApp.Models.ApplicationStatus>()">
+            <option value=""></option>
+            </select>
+            </td> *@
+                  <td>
+            @Html.ActionLink("Edit", "Edit", new {  idOffre=item.OffreId, idCandidate = item.CandidateId }) |
+         @*   @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+            </td> 
+            </tr>
+        }
+    </tbody>
+</table>

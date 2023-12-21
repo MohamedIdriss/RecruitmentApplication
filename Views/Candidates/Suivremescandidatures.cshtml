@@ -1,0 +1,45 @@
+﻿@model IEnumerable<RecruitmentApplication.Models.OffreCandidate>
+
+@{
+    ViewData["Title"] = "Suivremescandidatures";
+}
+
+<h1>Suivre mes candidatures</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Offre.Recruteur.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Offre.Title)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Offre.Recruteur.CompanyName)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Offre.Title)
+            </td>
+            <td>
+               @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

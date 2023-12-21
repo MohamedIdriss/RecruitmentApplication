@@ -59,7 +59,7 @@ public partial class RecruitmentDbContext : DbContext
 
         modelBuilder.Entity<OffreCandidate>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__OffreCan__3214EC0797D555F2");
+            entity.HasKey(e => new { e.CandidateId, e.OffreId }).HasName("PK__OffreCan__EA133AAD03B918EB");
 
             entity.ToTable("OffreCandidate");
 
