@@ -35,7 +35,13 @@ namespace RecruitmentApplication.Controllers
         public async Task<IActionResult> Inscription([Bind("Id,Email,Password,Role,ProfileCompleted")] User user)
         {
             if (ModelState.IsValid)
-            {   
+            {
+                if (_context.Users.Any(u => u.Email == user.Email))
+                {
+                    ModelState.AddModelError("Email", "Email is already taken.");
+                    return View(user);
+                }
+
                 user.ProfileCompleted = false;
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
