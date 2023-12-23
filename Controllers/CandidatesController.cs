@@ -139,5 +139,81 @@ namespace RecruitmentApplication.Controllers
         }
 
 
+        public async Task<IActionResult> EditProfile(int? id)
+        {
+            if (id == null || _context.Candidats == null)
+            {
+                return NotFound();
+            }
+
+            var candidat = await _context.Candidats.FindAsync(id);
+            if (candidat == null)
+            {
+                return NotFound();
+            }
+            return View(candidat);
+        }
+
+        // POST: Test/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditProfile(int id, [Bind("Id,Name,LastName,University,Date,Framework,Langue,GithubUrl,Tel,StageExperience")] Candidat candidat)
+        {
+            if (id != candidat.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(candidat);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CandidatExists(candidat.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(DetailsProfile));
+            }
+            return View(candidat);
+        }
+
+        private bool CandidatExists(int id)
+        {
+            return (_context.Candidats?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+
+        public async Task<IActionResult> DetailsProfile()
+        {
+
+            var userId = HttpContext.Session.GetInt32("UserId");
+
+            if (userId.Value == null || _context.Candidats == null)
+            {
+                return NotFound();
+            }
+
+            var candidat = await _context.Candidats
+                .FirstOrDefaultAsync(m => m.Id == userId.Value);
+            if (candidat == null)
+            {
+                return NotFound();
+            }
+
+            return View(candidat);
+        }
+
     }
 }

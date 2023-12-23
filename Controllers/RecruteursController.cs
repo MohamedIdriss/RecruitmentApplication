@@ -129,6 +129,78 @@ namespace RecruitmentApplication.Controllers
             return (_context.OffreCandidates?.Any(e => e.CandidateId == id)).GetValueOrDefault();
         }
 
+
+       
+        public async Task<IActionResult> DetailsProfile()
+        {
+
+            var userId = HttpContext.Session.GetInt32("UserId");
+
+            var recruteur = await _context.Recruteurs
+                .FirstOrDefaultAsync(m => m.Id == userId.Value);
+            if (recruteur == null)
+            {
+                return NotFound();
+            }
+
+            return View(recruteur);
+        }
+
+
+        public async Task<IActionResult> EditProfile(int? id)
+        {
+            if (id == null || _context.Recruteurs == null)
+            {
+                return NotFound();
+            }
+
+            var recruteur = await _context.Recruteurs.FindAsync(id);
+            if (recruteur == null)
+            {
+                return NotFound();
+            }
+            return View(recruteur);
+        }
+
+        // POST: Recruteurs/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditProfile(int id, [Bind("Id,Name,LastName,CompanyName,Url,Address")] Recruteur recruteur)
+        {
+            if (id != recruteur.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(recruteur);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!RecruteurExists(recruteur.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(DetailsProfile));
+            }
+            return View(recruteur);
+        }
+        private bool RecruteurExists(int id)
+        {
+            return (_context.Recruteurs?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
         // POST: Recruteurs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.

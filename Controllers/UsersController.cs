@@ -113,7 +113,7 @@ namespace RecruitmentApplication.Controllers
 
 
             // Optionally, clear session data or perform additional logout-related tasks
-           // HttpContext.Session.Clear();
+            HttpContext.Session.Clear();
 
 
             // Redirect to the login page or any other desired destination
