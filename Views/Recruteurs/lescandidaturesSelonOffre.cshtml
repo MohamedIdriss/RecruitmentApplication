@@ -14,6 +14,9 @@
                 @Html.DisplayNameFor(model => model.Offre.Title)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Candidate.Name)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Candidate.Framework)
             </th>
             <th>
@@ -37,6 +40,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Offre.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Candidate.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Candidate.Framework)
