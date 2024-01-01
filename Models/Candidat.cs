@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace RecruitmentApplication.Models;
 
@@ -12,7 +13,8 @@ public partial class Candidat
     public string? LastName { get; set; }
 
     public string? University { get; set; }
-
+    [DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
     public DateTime? Date { get; set; }
 
     public string? Framework { get; set; }

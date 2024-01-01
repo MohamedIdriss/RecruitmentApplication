@@ -50,6 +50,8 @@ namespace RecruitmentApplication.Controllers
                     _context.SaveChanges();
                 }
                 await _context.SaveChangesAsync();
+                int profileCompletedValue = user.ProfileCompleted ? 1 : 0;
+                HttpContext.Session.SetInt32("ProfileCompleted", profileCompletedValue);
 
                 return RedirectToAction("Index","Offres");
             }

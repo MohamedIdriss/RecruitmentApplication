@@ -4,69 +4,72 @@
     ViewData["Title"] = "AllOffres";
 }
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <!-- Add other stylesheets as needed -->
+</head>
+<body>
 
-<h1>AllOffres</h1>
-<form class="form-inline my-2 my-lg-0" asp-controller="Candidates" asp-action="Filter" style="padding-right: 25px;">
-    <div class="col">
-        <input name="searchString" type="text" class="form-control" placeholder="Search for an offer..." aria-label="Recipient's username" aria-describedby="button-addon2">
+    <div class="container mt-5">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+
+        <form class="form-inline my-2 my-lg-0" asp-controller="Candidates" asp-action="Filter" style="padding-right: 25px;">
+            <div class="input-group">
+                <input name="searchString" type="text" class="form-control" placeholder="Search for an offer..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-success" type="submit">Search<i class="bi bi-search"></i></button>
+                </div>
+            </div>
+        </form>
+
+        @if (TempData["SuccessMessage"] != null || TempData["ErrorMessage"] != null)
+        {
+            <div id="notificationMessage" class="alert @(TempData["SuccessMessage"] != null ? "alert-success" : "alert-danger") mt-3">
+                @(TempData["SuccessMessage"] ?? TempData["ErrorMessage"])
+            </div>
+
+            <script>
+                // Automatically hide the notification message after 5 seconds
+                setTimeout(function () {
+                    $('#notificationMessage').fadeOut('slow');
+                }, 5000);
+            </script>
+        }
+
+        <table class="table mt-4">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Recruteur</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Recruteur.Name)</td>
+                        <td>
+                            <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-info btn-sm">Details</a>
+                            <a href="@Url.Action("Postuler", new { id = item.Id })" class="btn btn-primary btn-sm">Postuler</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-    <div class="col">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
-    </div>
-</form>
-@if (TempData["SuccessMessage"] != null || TempData["ErrorMessage"] != null)
-{
-    <div id="notificationMessage" class="alert @(TempData["SuccessMessage"] != null ? "alert-success" : "alert-danger")">
-        @(TempData["SuccessMessage"] ?? TempData["ErrorMessage"])
-    </div>
 
-    <script>
-        // Automatically hide the notification message after 5 seconds
-        setTimeout(function () {
-            $('#notificationMessage').fadeOut('slow');
-        }, 5000);
-    </script>
-}
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recruteur)
-            </th>
-            <th>
-            </th>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-            
-
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-     <td>
-                    @Html.DisplayFor(modelItem => item.Recruteur.Name)
-                </td>
-           
-                    <td>
-                   |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-action="Postuler" asp-route-id="@item.Id">Postuler</a>
-                </td>
-
-        </tr>
-}
-    </tbody>
-</table>
+</body>
+</html>

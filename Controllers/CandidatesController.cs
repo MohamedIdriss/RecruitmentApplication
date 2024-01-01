@@ -41,7 +41,8 @@ namespace RecruitmentApplication.Controllers
                     _context.SaveChanges();
                 }
                 await _context.SaveChangesAsync();
-
+                int profileCompletedValue = user.ProfileCompleted ? 1 : 0;
+                HttpContext.Session.SetInt32("ProfileCompleted", profileCompletedValue);
                 return RedirectToAction(nameof(AllOffres));
             }
             return View(candidat);
@@ -110,7 +111,7 @@ namespace RecruitmentApplication.Controllers
             OffreCandidate oc = new OffreCandidate {
                 CandidateId = userId.Value ,
                 OffreId = (int)id,
-                Status = "En attente"
+                Status = "Pending"
             };
             _context.OffreCandidates.Add(oc);
             _context.SaveChanges();
