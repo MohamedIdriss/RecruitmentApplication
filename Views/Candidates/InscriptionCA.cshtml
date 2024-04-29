@@ -1,39 +1,55 @@
-﻿@model RecruitmentApplication.Models.Candidat
+﻿ @model RecruitmentApplication.Models.Candidat
 
 @{
-    ViewData["Title"] = "InscriptionCA";
+    ViewData["Title"] = "Inscription Candidate";
 }
 
-<h1>InscriptionCA</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+<body>
 
-<h4>Candidat</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="InscriptionCA">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="University" class="control-label"></label>
-                <input asp-for="University" class="form-control" />
-                <span asp-validation-for="University" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 class="text-center">@ViewData["Title"]</h1>
+            <h4 class="text-center">Candidat</h4>
+            <hr />
+
+            <form asp-action="InscriptionCA" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Name" class="control-label">Name</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="LastName" class="control-label">Last Name</label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="University" class="control-label">University</label>
+                    <input asp-for="University" class="form-control" />
+                    <span asp-validation-for="University" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label">Date</label>
+                    <input asp-for="Date" type="date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
                 <label asp-for="Framework" class="control-label"></label>
                 <input asp-for="Framework" class="form-control" />
                 <span asp-validation-for="Framework" class="text-danger"></span>
@@ -58,17 +74,24 @@
                 <input asp-for="StageExperience" class="form-control" />
                 <span asp-validation-for="StageExperience" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary btn-block" />
+                </div>
+                <br />
+                <br />
+                <br />
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+</body>
+</html>

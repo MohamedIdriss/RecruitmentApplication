@@ -1,15 +1,53 @@
-﻿@model RecruitmentApplication.Models.Candidat
+﻿           @model RecruitmentApplication.Models.Candidat
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
 
-<h4>Candidat</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+        .container {
+            margin-top: 0px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        .edit-form {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .back-link {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+        <div class="back-link">
+            <a href="@Url.Action("DetailsProfile")">Back to List</a>
+        </div>
+    <div class="edit-form">
+        <h4>Profile</h4>
+        <hr />
         <form asp-action="EditProfile">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -18,57 +56,61 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="University" class="control-label"></label>
-                <input asp-for="University" class="form-control" />
-                <span asp-validation-for="University" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Framework" class="control-label"></label>
-                <input asp-for="Framework" class="form-control" />
-                <span asp-validation-for="Framework" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Langue" class="control-label"></label>
-                <input asp-for="Langue" class="form-control" />
-                <span asp-validation-for="Langue" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GithubUrl" class="control-label"></label>
-                <input asp-for="GithubUrl" class="form-control" />
-                <span asp-validation-for="GithubUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Tel" class="control-label"></label>
-                <input asp-for="Tel" class="form-control" />
-                <span asp-validation-for="Tel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StageExperience" class="control-label"></label>
-                <input asp-for="StageExperience" class="form-control" />
-                <span asp-validation-for="StageExperience" class="text-danger"></span>
-            </div>
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="University" class="control-label"></label>
+                    <input asp-for="University" class="form-control" />
+                    <span asp-validation-for="University" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label"></label>
+                    <input asp-for="Date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Framework" class="control-label"></label>
+                    <input asp-for="Framework" class="form-control" />
+                    <span asp-validation-for="Framework" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Langue" class="control-label"></label>
+                    <input asp-for="Langue" class="form-control" />
+                    <span asp-validation-for="Langue" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GithubUrl" class="control-label"></label>
+                    <input asp-for="GithubUrl" class="form-control" />
+                    <span asp-validation-for="GithubUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Tel" class="control-label"></label>
+                    <input asp-for="Tel" class="form-control" />
+                    <span asp-validation-for="Tel" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StageExperience" class="control-label"></label>
+                    <input asp-for="StageExperience" class="form-control" />
+                    <span asp-validation-for="StageExperience" class="text-danger"></span>
+                </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
+
+    
+    <br />
+    <br />
+    <br />
 </div>
 
-<div>
-    <a asp-action="DetailsProfile">Back to List</a>
-</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+</body>
+</html>

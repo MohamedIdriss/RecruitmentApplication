@@ -1,45 +1,49 @@
 ﻿@model IEnumerable<RecruitmentApplication.Models.OffreCandidate>
 
 @{
-    ViewData["Title"] = "Suivremescandidatures";
+    ViewData["Title"] = "Track my applications";
 }
 
-<h1>Suivre mes candidatures</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <!-- Add other stylesheets as needed -->
+</head>
+<body>
 
+    <div class="container mt-5">
+        <h1 class="text-center">@ViewData["Title"]</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Offre.Recruteur.CompanyName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Offre.Title)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Offre.Recruteur.CompanyName)
-            </td>
-            <td>
-                    @Html.DisplayFor(modelItem => item.Offre.Title)
-            </td>
-            <td>
-               @* @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <table class="table mt-4">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Status</th>
+                    <th scope="col">Recruiter</th>
+                    <th scope="col">Offre Title</th>
+                
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Offre.Recruteur.CompanyName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Offre.Title)</td>
+                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+

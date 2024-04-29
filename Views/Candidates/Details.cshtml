@@ -4,65 +4,85 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <!-- Add other stylesheets as needed -->
+    <style>
+        body {
+            
+            background-color: #f8f9fa; /* Light background color */
+        }
 
-<div>
-    <h4>Offre</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-           Recruteur Informations
-        </dt>
+        .container {
+            margin-top: 0px;
+        }
 
-        <dd class = "col-sm-10">
-           
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Recruteur.Name)
-        </dt>
+        .offre-details {
+            margin-bottom: 30px;
+        }
 
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Recruteur.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Recruteur.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Recruteur.LastName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Recruteur.CompanyName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Recruteur.CompanyName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Recruteur.Address)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Recruteur.Address)
-        </dd>
-         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Recruteur.Url)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Recruteur.Url)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Postuler" asp-route-id="@Model?.Id">Postuler</a> |
-    <a asp-action="AllOffres">Back to List</a>
-</div>
+        .recruteur-info {
+            background-color: #ffffff; /* White background color */
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #007bff; /* Blue link color */
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1 class="offre-details">@ViewData["Title"]</h1>
+
+        <div class="offre-details">
+            <h4>Offre</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Title)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Title)</dd>
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Description)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Description)</dd>
+            </dl>
+        </div>
+
+        <div class="recruteur-info">
+            <h5>Recruteur Informations</h5>
+            <div class="row">
+                <div class="col-sm-3">@Html.DisplayNameFor(model => model.Recruteur.Name)</div>
+                <div class="col-sm-9">@Html.DisplayFor(model => model.Recruteur.Name)</div>
+                <div class="col-sm-3">@Html.DisplayNameFor(model => model.Recruteur.LastName)</div>
+                <div class="col-sm-9">@Html.DisplayFor(model => model.Recruteur.LastName)</div>
+                <div class="col-sm-3">@Html.DisplayNameFor(model => model.Recruteur.CompanyName)</div>
+                <div class="col-sm-9">@Html.DisplayFor(model => model.Recruteur.CompanyName)</div>
+                <div class="col-sm-3">@Html.DisplayNameFor(model => model.Recruteur.Address)</div>
+                <div class="col-sm-9">@Html.DisplayFor(model => model.Recruteur.Address)</div>
+                <div class="col-sm-3">@Html.DisplayNameFor(model => model.Recruteur.Url)</div>
+                <div class="col-sm-9">@Html.DisplayFor(model => model.Recruteur.Url)</div>
+            </div>
+        </div>
+
+       
+    </div>
+    <div class="mt-3">
+        <a href="@Url.Action("AllOffres")" class="btn btn-secondary">Back to List</a>
+        <a href="@Url.Action("Postuler", new { id = Model?.Id })" class="btn btn-primary">Postuler</a>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

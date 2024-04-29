@@ -2,7 +2,105 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .home-container {
+            margin-top: 50px;
+        }
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn-primary {
+            font-size: 20px;
+            padding: 15px 30px;
+        }
+
+        .features-section {
+            margin-top: 50px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+            .feature h3 {
+                color: #007bff;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center home-container">
+            <div class="col-md-8">
+                <div class="welcome-section">
+                    <h1 class="display-4">Welcome to the Recruitment Portal</h1>
+                    <p>Connect with great opportunities. RHs can create job offers, and candidates can apply for these offers.</p>
+                </div>
+                 @if (!Context.Session.GetInt32("UserId").HasValue)
+        {
+                <div class="cta-section">
+                    <a href="@Url.Action("Login", "Users")" class="btn btn-primary">Get Started - Login</a>
+                    <p class="mt-3">New here? <a href="@Url.Action("Inscription", "Users")">Sign Up</a></p>
+                </div>
+        }
+                <div class="features-section">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="feature">
+                                <h3>For Recruiters</h3>
+                                <p>Create, manage, and publish job offers with detailed descriptions. Customize the application process for candidates.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature">
+                                <h3>For Candidates</h3>
+                                <p>Create your profile, explore job offers, and easily apply online. Track the status of your applications.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <br />
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
+</body>
+</html>

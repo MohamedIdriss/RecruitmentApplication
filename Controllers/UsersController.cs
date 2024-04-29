@@ -52,7 +52,9 @@ namespace RecruitmentApplication.Controllers
                 }
                 HttpContext.Session.SetInt32("UserId", u.Id);
                 HttpContext.Session.SetString("UserRole", u.Role);
-                if (user.Role == "Recruteur") {
+                int profileCompletedValue = u.ProfileCompleted ? 1 : 0;
+                HttpContext.Session.SetInt32("ProfileCompleted", profileCompletedValue);
+                if (user.Role == "Recruiter") {
                     return RedirectToAction("InscriptionRH", "Recruteurs");
                 }
                 return RedirectToAction("InscriptionCA", "Candidates");
@@ -70,18 +72,21 @@ namespace RecruitmentApplication.Controllers
         {
             user.Id = 0;
             user.ProfileCompleted=false; 
-            user.Role = "Recruteur";
+            user.Role = "Recruiter";
             
             if (ModelState.IsValid)
             {
                 var u = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
                 if (u == null)
                 {
-                    return NotFound();
+                    ModelState.AddModelError("Email", "The provided email does not exist in our system.");
+                    return View(user);
                 }
                 HttpContext.Session.SetInt32("UserId", u.Id);
-                HttpContext.Session.SetString("UserRole", u.Role);
-                if (u.Role == "Recruteur")
+                HttpContext.Session.SetString("UserRole", u.Role); 
+                int profileCompletedValue = u.ProfileCompleted ? 1 : 0;
+                HttpContext.Session.SetInt32("ProfileCompleted", profileCompletedValue);
+                if (u.Role == "Recruiter")
                 {
                     if (u.ProfileCompleted == false)
                     {

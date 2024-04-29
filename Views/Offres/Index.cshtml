@@ -1,71 +1,109 @@
 ﻿@model IEnumerable<RecruitmentApplication.Models.Offre>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Offres";
 }
 
-<h1>Index</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-@*<form class="form-inline my-2 my-lg-0" asp-controller="Offres" asp-action="Filter" style="padding-right: 25px;">
-    <div class="col">
-        <input name="searchString" type="text" class="form-control" placeholder="Search for a actors..." aria-label="Recipient's username" aria-describedby="button-addon2">
+        .container {
+            margin-top: 0px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        .filter-form {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+
+        <div class="filter-form">
+            @using (Html.BeginForm())
+            {
+                <p>
+                    Type: @Html.DropDownList("type", "ALL")
+                    Title: @Html.TextBox("titre")
+                    <input type="submit" value="Find" class="btn btn-primary" />
+                </p>
+            }
+        </div>
+
+        <p>
+            <a asp-action="Create" class="btn btn-success">Create New</a>
+        </p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Publier)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Archiver)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Publier)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Archiver)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-    <div class="col">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
-    </div>
-</form>*@
-@using (Html.BeginForm())
-{
-    <p>
-        Type: @Html.DropDownList("type","ALL")
-        Title: @Html.TextBox("titre")
-        <input type="submit" value="Find" />
-    </p>
-}
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Publier)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Archiver)
-            </th>
-  
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Publier)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Archiver)
-            </td>
+    <br />
+    <br />
+    <br />
 
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
