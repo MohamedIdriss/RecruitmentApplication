@@ -53,11 +53,11 @@ namespace RecruitmentApplication.Controllers
         {
             var userId = HttpContext.Session.GetInt32("UserId");
             IQueryable list = _context.Offres.Include(o => o.Recruteur).Where(o => o.RecruteurId == userId.Value);
-            var lesgenre = new List<string> { "Publier", "Archiver" };
+            var lesgenre = new List<string> { "Publish", "Archive" };
             ViewBag.type = new SelectList(lesgenre);
 
             if (titre != null && type != null)
-            {  if (type == "Publier")
+            {  if (type == "Publish")
                 {
                     list = from m in _context.Offres.Include(o => o.Recruteur).Where(o => o.RecruteurId == userId.Value && o.Title.Contains(titre)
                            && o.Publier == true)
@@ -81,7 +81,7 @@ namespace RecruitmentApplication.Controllers
 
             else if (titre == null)
             {
-                if (type == "Publier")
+                if (type == "Publish")
                 {
                     list = from m in _context.Offres.Include(o => o.Recruteur).Where(o => o.RecruteurId == userId.Value 
                            && o.Publier == true)

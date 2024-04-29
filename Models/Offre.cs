@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace RecruitmentApplication.Models;
 
@@ -11,7 +12,9 @@ public partial class Offre
 
     public string? Description { get; set; }
 
+    [DisplayName("Publish")]
     public bool Publier { get; set; }
+    [DisplayName("Archive")]
 
     public bool Archiver { get; set; }
 

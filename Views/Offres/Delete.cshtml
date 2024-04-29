@@ -1,47 +1,71 @@
 ﻿@model RecruitmentApplication.Models.Offre
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Offer";
 }
 
-<h1>Delete</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Offre</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Publier)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Publier)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Archiver)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Archiver)
-        </dd>
-     
+        .container {
+            margin-top: 0px;
+        }
 
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
-</div>
+        h1 {
+            color: #dc3545;
+        }
+
+        .delete-container {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .confirmation-text {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+
+        <div class="delete-container">
+            <h3 class="confirmation-text">Are you sure you want to delete this?</h3>
+            <h4>Offre</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Title)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Title)</dd>
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Description)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Description)</dd>
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Publier)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Publier)</dd>
+                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Archiver)</dt>
+                <dd class="col-sm-10">@Html.DisplayFor(model => model.Archiver)</dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </form>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
